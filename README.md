@@ -5,6 +5,12 @@
 * [PDF version](compskills.pdf)
 * [Source code](https://github.com/ThorntonLab/ComputerSkills4GradStudents) for the book.
 
+## Course materials
+
+### Week 2
+
+* [Notes](week2notes) on conda and R Studio
+
 ## Lab exercises
 
 ### Week 1
