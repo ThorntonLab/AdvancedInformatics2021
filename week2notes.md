@@ -121,3 +121,8 @@ This continuous updating means that you are very likely to run into dependency r
 
 You also *cannot* use `conda` to replicate a computing environment on a different operating system.
 There is no guarantee that all the same versions of all the same things exist for all platforms at any given time.
+
+#### What does give a reproducible computing environment?
+
+The answer is "containers" -- Docker, Singularity, etc..
+This is "beyond the scope" of this class.
