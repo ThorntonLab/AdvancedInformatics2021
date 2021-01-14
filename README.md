@@ -21,3 +21,8 @@ For this week:
    The repo name will be `AdvancedInformaticsExercises`.
 2. The `README.md` file will be the landing point for a website.
 3. Submit a pull request that adds some random text somewhere in the `README`.
+
+### Week2
+
+[Slides](NotebookSlides) for this week.
+See [here](week2lab) for instructions.
