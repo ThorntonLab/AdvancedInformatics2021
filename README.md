@@ -24,4 +24,5 @@ For this week:
 
 ### Week2
 
+[Slides](NotebookSlides) for this week.
 See [here](week2lab) for instructions.
