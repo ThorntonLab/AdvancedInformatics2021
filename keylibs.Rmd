@@ -1,0 +1,107 @@
+# Important libraries for "data science"
+
+## R
+
+### The entire tidyverse
+
+```{r, eval=F}
+# This takes a while.
+# Go get a coffee or a beer
+install.packages("tidyverse")
+```
+
+See [here](https://r4ds.had.co.nz/) for the free version of the book.
+[Buy it](https://www.amazon.com/Data-Science-Transform-Visualize-Model/dp/1491910399) (or have your PI do so) if possible.
+Documentation is better when people are paid to write it!
+
+Seriously: if you use `R` a lot, *read this book* and **practice** what is within it.
+Look at the current websites for these projects, and learn the new stuff that's not in the book!
+This stuff will speed up your analyses and you will write less code that is more readable!
+
+#### dplyr
+
+Within `tidyverse`, extra special mention goes to [dplyr](https://dplyr.tidyverse.org/), which is the "swiss army knife" package of `data.frame` processing.
+
+#### data.table
+
+[data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) is an alternative to `dplyr`.
+
+#### Speed!
+
+When you are dealing with large data sets, not using `dplyr` or `data.frame` is probably costing your *orders of magnitude* of time.
+When `dplyr` first came out, I had analyses go from about a day to "several minutes".
+
+### Interactive graphics
+
+* [shiny](https://shiny.rstudio.com/) 
+* [plotly](https://plotly.com/r/)
+
+### High-performance computing
+
+* [Rcpp](https://rcpp.org) lets you write R functions in C++.
+  `Rcpp` is a mature project.
+  Use this when you have a performance bottleneck.
+* [extendr](https://github.com/extendr/extendr) is to [rust](https://www.rustlang.org) as `Rcpp` is to `C++`.
+  This project is just a few weeks old!
+
+## Python
+
+Python is a "general purpose" programming language.
+Thus, we look to add-on libraries for serious numerical/scientific computing (stuff that `R` has built-in because it is designed for stats/data analysis).
+Usually, these libraries are written in C or C++ to be fast, and then Python lets you use it with a nice interface.
+
+### numpy
+
+The "numeric Python", or [numpy](https://www.numpy.org) gives us arrays, matrices, linear algebra operations, vectorized calculations on arrays/matrices, random number generation, and probably some other stuff.
+
+The fundamental type is the `array`:
+
+```{python}
+import numpy as np
+
+a = np.array([0, 3, -4, 11])
+print(a)
+a = np.identity(4)
+print(a)
+```
+
+[A good book](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057) on `numpy`.
+(It also covers `pandas` and `matplotlib`.)
+
+### scipy
+
+A scientific computing library built using `numpy`.
+Provides:
+
+* Numerical optimization
+* Regression
+* More random number features
+* Lots of other things!
+
+### pandas
+
+[pandas](https://pandas.pydata.org/) provides `pandas.DataFrame`, analogous to `R`'s `data.frame`.
+It also provides the "split/apply/combine" functionality of `dplyr`.
+Many would argue that `dplyr`'s interface is more readable, but that's debatable once the analysis is sufficiently complex.
+
+[Book](https://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1491957662/) by the lead developer of `pandas`.
+
+### Machine learning tools
+
+* [scikit-learn](https://scikit-learn.org/stable/)
+* [tensorflow](https://www.tensorflow.org/)
+* [pytorch](https://pytorch.org/)
+
+### Interactive graphics
+
+* [plotly](https://plotly.com/python/)
+* [bokeh](https://plotly.com/r/)
+* [holoviews](https://holoviews.org/)
+
+### High-performance computing
+
+* [pybind11](https://pybind11.readthedocs.io) lets you write Python libraries in C++11/14/17.
+  Think `Rcpp`, but for Python.
+  Mature project.
+  Key tool in my lab!
+* [pyO3](https://github.com/PyO3/pyo3) is the [rust](https://www.rustlang.org) analog of `pybind11`.
