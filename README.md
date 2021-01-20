@@ -70,3 +70,4 @@ See [here](week2lab) for instructions.
 ### Week 3
 
 * [Useful R/Python libraries for data science](keylibs)
+* [lab](week3lab)
