@@ -7,6 +7,8 @@
 
 ## Course materials
 
+* [Homework assignment turn in pages](hwpages)
+
 ### Hints
 
 #### Nuke your conda!
