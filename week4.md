@@ -58,3 +58,9 @@ pip install snakemake
 
 Again, remember to use the correct version of the "Anaconda power shell", or whatever we've decided to call that thing!
 
+### For next time
+
+* Read the `snakemake` tutorial
+* Learn how to execute shell scripts on your system.
+  (The previous class had you do this.)
+* Learn how to execute R code without having to use R Studio nor the interactive shell.
