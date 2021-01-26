@@ -73,3 +73,7 @@ See [here](week2lab) for instructions.
 
 * [Useful R/Python libraries for data science](keylibs)
 * [lab](week3lab)
+
+### Week 4
+
+* [snakemake intro](week4)
