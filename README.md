@@ -77,3 +77,4 @@ See [here](week2lab) for instructions.
 ### Week 4
 
 * [snakemake intro](week4)
+* [lab](week4lab)
