@@ -96,6 +96,11 @@ library(ggplot2)
 # Do the plot here
 ```
 
+## Resources
+
+* [This](https://clauswilke.com/dataviz/) is an excellent book on making nice plots based on data.
+  It is written using R, but the concepts apply to all languages.
+
 ## What else?
 
 What plotting things do you have questions about?
