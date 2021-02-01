@@ -78,3 +78,7 @@ See [here](week2lab) for instructions.
 
 * [snakemake intro](week4)
 * [lab](week4lab)
+
+### Week 5
+
+* [Plotting](week5)
