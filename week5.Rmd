@@ -1,0 +1,108 @@
+# Plotting
+
+Plotting your results is a key component of your research.
+Plotting is writing.
+Writing is rewriting.
+Thus, plotting is replotting.
+
+While preparing a paper, expect to revise figures many many times!
+
+When people read a paper, they will tend to read title, abstract, then figures.
+So your figures should be the "plot" of your paper.
+
+## Big picture points
+
+* Most plots will be static representations of data
+* The plots in your SI material must be just as high-quality as the main plots.
+* Your plots based on data should be reproducible!
+  This means that they should not be touched by Photoshop/Illustrator/Inkscape.
+
+That last point re: Photoshop *et al.* may be somewhat controversial.
+A lot of people like to touch up colors, etc., using Illustrator or Inkscape.
+My opinion is that you are much better off getting the figures right in R or in Python.
+You should expect to revise figures many times.
+If your figure work flow involves moving things around in Illustrator, then you'll be doing that many times, too.
+
+
+## Figure standards
+
+Your figures need to look like figures published in the journals that you read.
+In your journal clubs, pay special attention to this.
+
+General guidelines:
+
+* No screen shots.
+  Never.
+  Not even for lab meeting.
+  When using output from another application, that application should have a proper way to export results.
+  This goes for Rstudio/Jupyter, too!
+* Use proper formatting.
+  If a variable is $\sigma$, do not write `sigma` in your plot.
+  Likewise, if you need to write $\Gamma_{i,j}$, don't write $\Gamma ij$ or `Gammaij`.
+
+Fonts and color deserve special mention.
+
+* Your figure has to be legible when reproduced on a printed page.
+* To accomplish this, you need to make the graphic large, with large fonts and high resolution, so that it reduces.
+* This takes some time to learn.
+* Colors need to be distinguishable more than they need to be appealing.
+* Watch out for color schemes that aren't friendly to common forms of color blindness.
+* Any thing like a "heat map" should probably be using the `viridis` color map.
+  This is the default on Python/matplotlib now, and is an add-on library for R.
+
+## Skills to develop
+
+* Saving files in different sizes.
+* Saving files in different formats.
+* Greek lettering and mathematical formatting.
+* Color and alpha transparency.
+* Line and point styles/shapes.
+* Font sizes: adjusting the axes/legend/title font sizes independently.
+* Data-aware labeling.
+  For example, adding an arrow to a plot and printing a number showing the value of the data point.
+  The value should not be hand-written.
+  Rather, it should be a calculation done via code, so that it stays correct if the data change and the plot needs to be regenerated.
+* Multi-panel plotting.
+  Ideally, this should be done via code, and not using, say, Illustrator.
+  $\LaTeX$ users can/should use `\subfig` environments here, as you can then explicitly `\ref` each sub-figure.
+* Automation.
+  For example, using `snakemake` to keep plots up to date as the data/scripts change.
+
+## Different figures for different contexts
+
+You'll make figures for exploring data, for lab meeting, for talks, for posters, and for publication.
+Each of these types will have slightly different needs.
+
+For example, slides for a talk should be *much* more streamlined than the published version.
+Many of us fall into a trap of pulling figures directly from papers and putting them into talks.
+The result is figures with too many extraneous annotations, lines, etc., that distract from the point we are trying to make.
+(In the paper, the caption would talk about all that stuff.
+If the caption does not, then you may consider deleting the annotation.)
+
+So, you may consider setting up your plotting work flow along these lines:
+
+* `plot_common.R` reads in the data, and does whatever manipulation is needed to get the data "plot ready".
+* `plot_labmeeting.R`, `plot_poster.R`, etc., may make slightly different versions of the figure.
+
+The contents of the latter may look like:
+
+```{r, eval=F}
+# do the main processing
+source("plot_common.R")
+
+# load up your plotting library
+library(ggplot2)
+
+# Do the plot here
+```
+
+## Resources
+
+* [This](https://clauswilke.com/dataviz/) is an excellent book on making nice plots based on data.
+  It is written using R, but the concepts apply to all languages.
+
+## What else?
+
+What plotting things do you have questions about?
+I may be able to add them into the week's exercise.
+
