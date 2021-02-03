@@ -8,6 +8,11 @@ library(reticulate)
 
 For the R and Python sections here, either pick one of the languages, or do both.
 
+For R, do both `base` and `ggplot2` operations!
+
+Note that I'm not having you do multi-panel plots in `base` R.  
+Spoiler alert: it is kinda annoying.
+
 ### R
 
 #### Greek symbols
@@ -50,12 +55,56 @@ Extra hint: this is one of the more obnoxious corners of R.
 Take the graph we started with, and assume there's a variable `y = 7`.
 Add a text element at coordinates `x=0.1, y=0.4` to the graph that says $\Gamma = 7$.
 
+#### Saving files
+
+Save one of your graphics in the following formats:
+
+* pdf with 18 point font, 10" by 10" square
+* tiff with 18 point font, 10" by 10" square and the x axis font is 1/2 the global font size.
+* 72 dpi png with 18 point font, 10" by 10" square
+* 300 dpi png with 18 point font, 10" by 10" square
+
+Note: please do not commit the files!
+Some of them will be massive!
+The point is for you to learn the commands.
+
+Hints for R users:
+
+* See `help(par)`
+* Each of the above outputs will require at least 4 line of R code.
+
+### R/ggplot
+
+Take the following ggplot:
+
+```{r}
+library(ggplot2)
+data(mtcars)
+p = ggplot(mtcars, aes(x=cyl, y = mpg)) + geom_point()
+p
+```
+
+Repeat the various manipulations above.
+Where the above instructions refer to lines, change point color/size/shape instead.
+New users: `ggplot` does not use `par`, `cex`, etc..
+It has its own "special" ways.
+
+Also, use the `ggpubr` library to plot two ggplots side by side.
+(It is fine to plot the same plot next to itself.)
+
+Do it again, but as a 2x2 matrix of 4 plots.
+
 ### Python
 
 Do the same manipulations described above for the R plots, but using this graph:
 
 Hint: all of the Greek letter stuff can be accomplished with string literals and $\LaTeX$ syntax.
 (This is an area where Python is far easier than R.)
+
+For the `ggplot` parts, use `seaborn`.
+
+For multi-panel plotting, you may use `matplotlib.pyplot` or `seaborn` as you see fit.
+Hint: you'll want to take a look at `GridSpec`, which is part of `matplotlib`.
 
 ```{python}
 import matplotlib.pyplot as plt
@@ -74,15 +123,141 @@ ax.set_ylabel('y')
 
 Heat maps with marginals in Python.
 
+Sometimes, a "heat map" is confused with a joint distribution.
+
+Here's a joint distribution:
+
 ```{python}
 import seaborn as sns
+import matplotlib
+print(sns.__version__)
 
 df = sns.load_dataset('iris')
-# sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='kde')
-# sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='scatter', s=200, color='m', edgecolor="skyblue", linewidth=2)
-# sns.set(style="white", color_codes=True)
-sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='kde', palette="crest", color="skyblue")
-plt.show();
+sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='hist', palette='cubehelix', hue=df['species']);
+plt.show()
 ```
 
+And a heat map:
 
+```{python}
+import numpy as np
+import pandas as pd
+np.random.seed(42)
+
+data = np.random.multivariate_normal([0., -0.25], [[1., 0.0], [0.0, 4.]], 10000)
+print(data)
+sns.heatmap(data, cmap="viridis")
+```
+
+The joint density version of the above is:
+
+```{python}
+x, y = data.T
+df = pd.DataFrame({'x': x,'y': y})
+sns.jointplot(x=df['x'], y=df['y'], kind='kde');
+plt.show()
+```
+
+Or, 
+
+```{python}
+sns.set_palette('viridis')
+sns.jointplot(x=df['x'], y=df['y'], kind='hist');
+plt.show()
+```
+
+Or, super-sneaky:
+
+
+```{python}
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+
+ax = sns.jointplot(x=df['x'], y=df['y'], kind='hist');
+# replace main plot with plt.hist2d
+ax.ax_joint.cla()
+plt.sca(ax.ax_joint)
+h = plt.hist2d(df.x, df.y, bins=(50, 50), cmap='viridis')
+
+# Add color bar onto inset axis
+cbaxes = inset_axes(ax.ax_joint, width="45%", height="3%", loc=1)
+cbaxes.axis['bottom'].major_ticklabels.set_color('white')
+cbar = plt.colorbar(h[3], cax=cbaxes, orientation='horizontal')
+cbar.outline.set_edgecolor('white')
+plt.show()
+```
+
+#### Plotting from summary stats
+
+This is hard, and not in the usual domain of statistical software.
+
+An incomplete R solution follows.
+I couldn't be bothered to get the x-axis spacing to work out, as I can already tell it won't generalize to a plot with more columns.
+
+Get the raw data and just plot them, I guess.
+
+```{r}
+a = rnorm(1e3, 1, 0.1)
+b = rnorm(1e3, 2, 0.5)
+heights = c(mean(a), mean(b))
+std_dev = c(sd(a), sd(b))
+xlim=c(0, length(heights))
+barplot(heights, xlim=xlim, ylim=c(0, max(heights) + max(std_dev)))
+
+# Manually add +/- 1 sd
+segments(0.5, heights[1], 0.5, heights[1] + std_dev[1])
+segments(0.5, heights[1], 0.5, heights[1] - std_dev[1])
+segments(1.5, heights[2], 1.5, heights[2] + std_dev[2])
+segments(1.5, heights[2], 1.5, heights[2] - std_dev[2])
+```
+
+#### Versus some other package
+
+Honestly, I didn't see anything in that package that couldn't be done in R.
+In fact, I almost suspect that they use R or Python as a back end.
+I think it is just a question of adjusting styles.
+
+### Super special hints for Python users
+
+#### Use $\LaTeX$ for font rendering.
+
+Some folks don't like the default `matplotlib` fonts.
+Use the beautiful `Computer Modern` font instead.
+
+Warning: requires a full $\LaTeX$ setup!
+I had to do the following first on my Ubuntu:
+
+```{sh, eval=F}
+sudo apt install cm-super dvipng
+```
+
+The code:
+
+```{python}
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+
+f, ax = plt.subplots()
+x = [i for i in range(10)]
+y = [i**2 for i in x]
+ax.plot(x, y)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+```
+
+#### Remote plotting
+
+On Unix systems, the default display back-end for `matplotlib`  requires `X11`.
+This requirement poses a problem when trying to have an HPC job generate a plot--a user authenticated to use an `X` display does not exist.
+Likewise, it is a problem when working remotely via `ssh` and you didn't use `-Y` to connect, etc..
+
+Solution: switch the back-end to `agg`:
+
+```{python, eval=F}
+# Not executed in this notebook!
+import matplotlib
+matplotlib.use('agg')
+```
