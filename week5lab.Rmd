@@ -1,0 +1,88 @@
+# Plotting
+
+```{r, echo=F}
+library(reticulate)
+```
+
+## Plotting basics
+
+For the R and Python sections here, either pick one of the languages, or do both.
+
+### R
+
+#### Greek symbols
+
+Take the following plot:
+
+```{r}
+plot(sin)
+```
+
+Change it so that the `x` axis label is $\sigma$ and the `y` axis label is $\tau$.
+Those are the Greek letters "sigma" and "tau", respectively.
+
+Hint: look up the R function `expression`.
+
+```{r}
+plot(sin, xlab=expression(sigma), ylab=expression(tau))
+```
+
+Take the same plot, and change the `x` axis label to $\sigma^2_s$.
+
+#### Color and line style (base graphics)
+
+For the same plot as above, change the plot so that the line is red, "dot-dash", and 3 times the default line thickness.
+
+#### Axis labels from data
+
+Take the graph we started with, and assume there's a variable `y = 7`.
+Add a title to the graph that says $\Gamma = 7$.
+(That's the Greek letter "gamma".)
+Do it using the variable! 
+Don't "hard-code" in the value!
+
+Hint: the function you need here is `bquote`.
+Extra hint: this is one of the more obnoxious corners of R.
+
+
+#### Annotations from data
+
+Take the graph we started with, and assume there's a variable `y = 7`.
+Add a text element at coordinates `x=0.1, y=0.4` to the graph that says $\Gamma = 7$.
+
+### Python
+
+Do the same manipulations described above for the R plots, but using this graph:
+
+Hint: all of the Greek letter stuff can be accomplished with string literals and $\LaTeX$ syntax.
+(This is an area where Python is far easier than R.)
+
+```{python}
+import matplotlib.pyplot as plt
+
+f, ax = plt.subplots()
+x = [i for i in range(10)]
+y = [i**2 for i in x]
+ax.plot(x, y)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+```
+
+## Questions from the group
+
+#### Narges
+
+Heat maps with marginals in Python.
+
+```{python}
+import seaborn as sns
+
+df = sns.load_dataset('iris')
+# sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='kde')
+# sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='scatter', s=200, color='m', edgecolor="skyblue", linewidth=2)
+# sns.set(style="white", color_codes=True)
+sns.jointplot(x=df["sepal_length"], y=df["sepal_width"], kind='kde', palette="crest", color="skyblue")
+plt.show();
+```
+
+
