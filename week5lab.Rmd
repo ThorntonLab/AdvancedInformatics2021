@@ -28,10 +28,6 @@ Those are the Greek letters "sigma" and "tau", respectively.
 
 Hint: look up the R function `expression`.
 
-```{r}
-plot(sin, xlab=expression(sigma), ylab=expression(tau))
-```
-
 Take the same plot, and change the `x` axis label to $\sigma^2_s$.
 
 #### Color and line style (base graphics)
@@ -46,7 +42,7 @@ Add a title to the graph that says $\Gamma = 7$.
 Do it using the variable! 
 Don't "hard-code" in the value!
 
-Hint: the function you need here is `bquote`.
+Hint: the function you need here is `bquote` and the horrific `.(foo)` syntax, where `foo` is a variable.
 Extra hint: this is one of the more obnoxious corners of R.
 
 
@@ -186,7 +182,7 @@ cbar.outline.set_edgecolor('white')
 plt.show()
 ```
 
-#### Plotting from summary stats
+#### Parvan - Plotting from summary stats
 
 This is hard, and not in the usual domain of statistical software.
 
@@ -210,7 +206,7 @@ segments(1.5, heights[2], 1.5, heights[2] + std_dev[2])
 segments(1.5, heights[2], 1.5, heights[2] - std_dev[2])
 ```
 
-#### Versus some other package
+#### Johnny - plots aren't as nice as Graph Pad Prism:
 
 Honestly, I didn't see anything in that package that couldn't be done in R.
 In fact, I almost suspect that they use R or Python as a back end.
