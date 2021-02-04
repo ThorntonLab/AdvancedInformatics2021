@@ -82,3 +82,4 @@ See [here](week2lab) for instructions.
 ### Week 5
 
 * [Plotting](week5)
+* [lab](week5lab)
